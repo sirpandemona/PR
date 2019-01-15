@@ -1,6 +1,6 @@
 %s1 = prnist([0:9],[1:1000]);
 s1 = gen_dataset(1000,false);
-s2 = gen_dataset(10,false);
+s2 =gen_dataset(10,false);
 
 a1 = my_rep(s1);
 a2 = my_rep(s2);
