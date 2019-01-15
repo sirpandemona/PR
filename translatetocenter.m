@@ -1,16 +1,21 @@
-function dataset = translatetocenter(dataset)
+function dataset = translatetocenter(dataset,length,margin)
     s = size(dataset);
-    cog = middle(dataset);
+    middle = length/2+0.5;
+    cog = centerofgravity(dataset);
     for i = 1:s(1)
         newdataset = dataset;
-        movehorizontal = round(max(min(12.5-cog(i,1),4),-4));
-        movevertical = round(max(min(12.5-cog(i,2),4),-4));
-        move = movehorizontal*24+movevertical;
-        newdataset(i,1:100+move) = 0;
-        for j = 101:476
+        movehorizontal = round(max(min(middle-cog(i,1),margin),-margin));
+        movevertical = round(max(min(middle-cog(i,2),margin),-margin));
+        move = movehorizontal*length+movevertical;
+        for j = 1:length*margin+margin+move
+            newdataset(i,j) = 0;
+        end
+        for j = length*margin+margin+1:length*(length-margin)-margin
             newdataset(i,j+move) = dataset(i,j);
         end
-        newdataset(i,477+move:576) = 0;
+        for j = length*(length-margin)-margin+1+move:length*length
+            newdataset(i,j) = 0;
+        end
         dataset = newdataset;
     end
 end
