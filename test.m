@@ -5,6 +5,9 @@ s2 = gen_dataset(10,false);
 a1 = my_rep(s1);
 a2 = my_rep(s2);
 
+a1 = gen_bounds(a1,[32 32]);
+a2 = gen_bounds(a2,[32 32]);
+
 pca1 = pca(a1);
 pca2 = pca(a2);
 a1 = a1*pca1;
