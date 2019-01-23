@@ -8,7 +8,7 @@ errs = zeros(c,8);
 data = prnist([0:9],1:1000);
 B = my_rep(data);
 %C = gen_bounds(B, [32 32]);
-C = Bounds;
+C = bnd2geo(B,[32 32]);
 %C = B;
 for i=1:c
     testIdx = find(cvIdx ==i);
