@@ -6,4 +6,3 @@ function Dif = comparefigures(trainfigures,testfigures)
         end
     end
 end
-
