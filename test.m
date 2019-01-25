@@ -1,9 +1,16 @@
 %s1 = prnist([0:9],[1:1000]);
-s1 = gen_dataset(1000,false);
+dim = [32 32];
+s1 = gen_dataset(100,false);
 s2 = gen_dataset(10,false);
 
 a1 = my_rep(s1);
 a2 = my_rep(s2);
+
+a1 = gen_bounds(a1,dim);
+a2 = gen_bounds(a2,dim);
+
+b2 = im_resize(a2, [16 16]);
+c2 = bnd2geo(b2,[16 16]);
 
 pca1 = pca(a1);
 pca2 = pca(a2);

@@ -2,17 +2,20 @@
 %data =  my_rep(s1);
 
 c = 10;
-n = 1000;
+n = 10000;
 cvIdx = crossvalind('Kfold',n,c);
 errs = zeros(c,8);
+data = prnist([0:9],1:1000);
+B = my_rep(data);
+%C = gen_bounds(B, [32 32]);
+C = bnd2geo(B,[32 32]);
+%C = B;
 for i=1:c
     testIdx = find(cvIdx ==i);
     trainIdx = find(cvIdx ~=i);
-    trainData = prnist([0:9],trainIdx);
-    testData = prnist([0:9],testIdx);
-
-    a = my_rep(trainData);
-    a_t = my_rep(testData);  
+    a = C(trainIdx,:);
+    a_t = C(testIdx,:);
+    
     pcaT = pca(a);
     a = a*pcaT;
     a_t = a_t * pcaT;
@@ -35,7 +38,7 @@ for i=1:c
     loge = evalc(log1,a_t);
     treee = evalc(tree1,a_t);
     
-    errs(i,:) = [knne parse nmce ldce qdce fishere loge treee]; 
+    errs(i,:) = [knne parse nmce ldce qdce fishere loge treee] ;
 end
 
 avgErrs = mean(errs,1)
