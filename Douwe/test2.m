@@ -1,7 +1,5 @@
-%clear all
-%clc
-prtime(300);
-a = prnist([0:9],[1:100:1000]);
+prtime(600);
+a = gen_dataset(10,false);
 a = my_rep(a);
-w =adaboostc(a,svc(proxm('p',2)));
+w =adaboostc(a,svc);
 e = nist_eval('my_rep',w,100)
