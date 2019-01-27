@@ -4,12 +4,12 @@
 c = 10;
 n = 10000;
 cvIdx = crossvalind('Kfold',n,c);
-errs = zeros(c,8);
+errs = zeros(c,9);
 data = prnist([0:9],1:1000);
 B = my_rep(data);
 %C = gen_bounds(B, [32 32]);
-C = bnd2geo(B,[32 32]);
-%C = B;
+%C = bnd2geo(B,[32 32]);
+C = B;
 for i=1:c
     testIdx = find(cvIdx ==i);
     trainIdx = find(cvIdx ~=i);
@@ -20,7 +20,9 @@ for i=1:c
     a = a*pcaT;
     a_t = a_t * pcaT;
     
-    [knn1,k1,e1] =knnc(a,1);
+    [nn11,k11,e11] =knnc(a,1);
+    [nn31,k13,e13] =knnc(a,3);
+
     pars1  = parzenc(a,1);
     nmc1 = nmc(a);
     ldc1 = ldc(a);
@@ -28,8 +30,9 @@ for i=1:c
     fisher1 = fisherc(a);
     log1 = loglc(a);
     tree1 = treec(a);
-
-    knne = evalc(knn1,a_t);
+    
+    nn1e = evalc(nn11,a_t);
+    nn3e = evalc(nn31,a_t);
     parse = evalc(pars1,a_t);
     nmce = evalc(nmc1, a_t);
     ldce = evalc(ldc1,a_t);
@@ -38,7 +41,7 @@ for i=1:c
     loge = evalc(log1,a_t);
     treee = evalc(tree1,a_t);
     
-    errs(i,:) = [knne parse nmce ldce qdce fishere loge treee] ;
+    errs(i,:) = [nn1e nn3e parse nmce ldce qdce fishere loge treee] ;
 end
 
 avgErrs = mean(errs,1)

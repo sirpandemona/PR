@@ -1,4 +1,4 @@
-s2 = gen_dataset(10,false);
+s2 = gen_dataset(1000,false);
 
 a2 = centered_dataset(s2,[24 4]);
 
