@@ -58,7 +58,7 @@ C = C*pcaN;
 %Train classifier
 [knn1,k1,e1] =knnc(C,1);
 %Call the benchmark function
-error = nist_eval('my_rep',pcaN*knn1,100);
+error = nist_eval('my_rep',pcaN*knn1,100)
 
 %Given classifier 'w' and testData, return the error rate of the classifier
 %on the training data
